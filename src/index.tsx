@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd';
 import App from './App';
-import {gql} from "@apollo/client";
+import {ApolloClient, ApolloProvider, gql, InMemoryCache} from "@apollo/client";
 
 export const GET_CHARACTERS = gql`
     query GetCharacters($first: Int, $after: String) {
@@ -31,14 +31,18 @@ export const GET_CHARACTERS = gql`
         }
     }
 `;
+const client = new ApolloClient({
+    uri: 'https://swapi-graphql.netlify.app/.netlify/functions/index',  // 替换为你的实际 GraphQL 地址
+    cache: new InMemoryCache(),
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
-        <ConfigProvider>
+        <ApolloProvider client={client}>
             <App />
-        </ConfigProvider>
+        </ApolloProvider>
     );
 }
 

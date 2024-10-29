@@ -13,3 +13,7 @@ type CharacterEdge = {
     node: CharacterNode;
     cursor: string;
 };
+
+interface CharacterTableProps {
+    page: number;
+}
