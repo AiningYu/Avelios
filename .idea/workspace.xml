@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4af9eb8-bf32-4193-83ef-41388db9de52" name="Changes" comment="use GraphQL Codegen to generate code">
+    <list default="true" id="e4af9eb8-bf32-4193-83ef-41388db9de52" name="Changes" comment="working table">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eslint.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/character-table/CharacterTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/character-table/CharacterTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/character-table/CharacterTable.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/character-table/CharacterTable.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/landing-page/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landing-page/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphql/execute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/execute.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,11 +63,15 @@
     "git-widget-placeholder": "initialization",
     "last_opened_file_path": "/Users/macvoneffi/WebstormProjects/Avelios/star-wars-characters",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
+    "npm.format.executor": "Run",
+    "npm.lint.executor": "Run",
     "npm.start.executor": "Run",
     "npm.test.executor": "Run",
     "settings.editor.selected.configurable": "settings.typescriptcompiler",
@@ -83,7 +89,7 @@
       <recent name="$PROJECT_DIR$/public" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.lint">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -94,8 +100,30 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="format" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="lint" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.lint" />
+        <item itemvalue="npm.format" />
         <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
@@ -117,7 +145,7 @@
       <updated>1729828492021</updated>
       <workItem from="1729828493210" duration="383000" />
       <workItem from="1729829260608" duration="8761000" />
-      <workItem from="1730200842079" duration="10468000" />
+      <workItem from="1730200842079" duration="13444000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project">
       <option name="closed" value="true" />
@@ -151,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730214942995</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="working table">
+      <option name="closed" value="true" />
+      <created>1730217113472</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730217113472</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +208,7 @@
     <MESSAGE value="initialize project" />
     <MESSAGE value="git settings" />
     <MESSAGE value="use GraphQL Codegen to generate code" />
-    <option name="LAST_COMMIT_MESSAGE" value="use GraphQL Codegen to generate code" />
+    <MESSAGE value="working table" />
+    <option name="LAST_COMMIT_MESSAGE" value="working table" />
   </component>
 </project>

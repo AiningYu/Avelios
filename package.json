@@ -2,20 +2,29 @@
   "name": "your-project",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
+    "@eslint/js": "^9.13.0",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/schema-ast": "^4.1.0",
     "@parcel/watcher": "^2.4.1",
     "@types/graphql": "^14.5.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "prettier": "^3.3.3",
     "typescript": "^5.6.3"
   },
   "dependencies": {
