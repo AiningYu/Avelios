@@ -1,34 +1,30 @@
 {
-  "name": "untitled",
-  "version": "0.1.0",
+  "name": "your-project",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.115",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "antd": "^5.21.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "svgo": "^3.3.2",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.16",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@parcel/watcher": "^2.4.1",
+    "@types/graphql": "^14.5.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.8",
+    "@tanstack/react-query": "^5.59.16",
+    "antd": "^5.21.6",
+    "graphql": "^16.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "browserslist": {
     "production": [
@@ -41,9 +37,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^8.57.1",
-    "eslint-config-react-app": "^7.0.1"
   }
 }

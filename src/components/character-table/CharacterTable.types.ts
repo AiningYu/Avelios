@@ -1,12 +1,15 @@
-interface Character {
-    key: string;
+type CharacterNode = {
+    id: string;
     name: string;
-    height: number;
-    weight: number;
-    home_planet: string;
-    species: string;
+    height: string;
+    mass: string;
+    homeworld?: { name: string };
+    species?: { name: string };
     gender: string;
-    eye_color: string;
-}
+    eyeColor: string;
+};
 
-export default Character;
+type CharacterEdge = {
+    node: CharacterNode;
+    cursor: string;
+};

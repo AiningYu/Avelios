@@ -1,73 +1,60 @@
 // src/components/CharacterTable.tsx
+
 import React from 'react';
 import { Table } from 'antd';
-import Character from "./CharacterTable.types";
-
-
-const data: Character[] = [
-    {
-        key: '1',
-        name: 'Luke Skywalker',
-        height: 172,
-        weight: 77,
-        home_planet: 'Tatooine',
-        species: 'Human',
-        gender: 'Male',
-        eye_color: 'Blue',
-    },
-    {
-        key: '2',
-        name: 'Leia Organa',
-        height: 150,
-        weight: 49,
-        home_planet: 'Alderaan',
-        species: 'Human',
-        gender: 'Female',
-        eye_color: 'Brown',
-    },
-    // 其他角色数据
-];
+import { useQuery} from '@apollo/client';
+import {GET_CHARACTERS} from '../../index.tsx';
 
 const columns = [
     {
         title: 'Name',
-        dataIndex: 'name',
+        dataIndex: ['node', 'name'],
         key: 'name',
     },
     {
         title: 'Height',
-        dataIndex: 'height',
+        dataIndex: ['node', 'height'],
         key: 'height',
     },
     {
         title: 'Weight',
-        dataIndex: 'weight',
-        key: 'weight',
+        dataIndex: ['node', 'mass'],
+        key: 'mass',
     },
     {
         title: 'Home Planet',
-        dataIndex: 'home_planet',
-        key: 'home_planet',
+        dataIndex: ['node', 'homeworld', 'name'],
+        key: 'homeworld',
     },
     {
         title: 'Species',
-        dataIndex: 'species',
+        dataIndex: ['node', 'species', 'name'],
         key: 'species',
     },
     {
         title: 'Gender',
-        dataIndex: 'gender',
+        dataIndex: ['node', 'gender'],
         key: 'gender',
     },
     {
         title: 'Eye Color',
-        dataIndex: 'eye_color',
-        key: 'eye_color',
+        dataIndex: ['node', 'eyeColor'],
+        key: 'eyeColor',
     },
 ];
 
 const CharacterTable: React.FC = () => {
-    return <Table columns={columns} dataSource={data} />;
+    const { loading, error, data } = useQuery(GET_CHARACTERS, {
+        variables: { first: 10 },
+    });
+    console.log("data");
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const formattedData: CharacterEdge[] = data?.allPeople?.edges || [];
+
+    return <Table columns={columns} dataSource={formattedData} rowKey={(record) => record.node.id} pagination={false} />;
 };
 
 export default CharacterTable;
