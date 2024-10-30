@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 import { Checkbox, Table } from 'antd';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS } from '../../index.tsx';
+import { useNavigate } from 'react-router-dom';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 function CharacterTable(props: CharacterTableProps) {
   const { page } = props;
+  const pageSize = 10;
+  const offset = (page - 1) * pageSize;
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const navigate = useNavigate();
+
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+    variables: { first: pageSize, after: offset.toString() },
+  });
+  const formattedData: CharacterEdge[] = data?.allPeople?.edges || [];
+
   const toggleFavorite = (characterId: string) => {
     setFavorites((prev) => {
       const newFavorites = new Set(prev);
@@ -16,6 +28,7 @@ function CharacterTable(props: CharacterTableProps) {
       return newFavorites;
     });
   };
+
 
   const columns = [
     {
@@ -71,19 +84,22 @@ function CharacterTable(props: CharacterTableProps) {
       key: 'eyeColor',
       render: (text: string) => text || '-',
     },
+    {
+      title: ' ',
+      dataIndex: ' ',
+      key: 'jump',
+      render: (_: any, record: CharacterEdge) => (
+        <ArrowRightOutlined
+          // onClick={() => navigate(`/characters/${record.node.id}`)}
+          onClick={() => navigate(`/characters/`)}
+          style={{ cursor: 'pointer' }}
+        />
+      ),
+    },
   ];
-  const pageSize = 10;
-  const offset = (page - 1) * pageSize;
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
-
-  const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { first: pageSize, after: offset.toString() },
-  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
-  const formattedData: CharacterEdge[] = data?.allPeople?.edges || [];
 
   return (
     <Table
@@ -91,8 +107,10 @@ function CharacterTable(props: CharacterTableProps) {
       dataSource={formattedData}
       rowKey={(record) => record.node.id}
       pagination={false}
+      className="custom-table"
     />
   );
+
 }
 
 export default CharacterTable;
