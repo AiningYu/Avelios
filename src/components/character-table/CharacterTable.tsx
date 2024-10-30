@@ -97,7 +97,7 @@ function CharacterTable() {
       key: 'jump',
       render: (_: any, record: CharacterEdge) => (
         <ArrowRightOutlined
-          onClick={() => navigate(`/characters/`)}
+          onClick={() => navigate(`/characters/${record.node.id}`)}
           style={{ cursor: 'pointer' }}
         />
       ),
