@@ -1,11 +1,20 @@
 // src/components/CharacterTable.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useCharacterData } from '../../hooks/useCharacterData';
+import CharacterFilters from './components/characters-filters/CharactersFilters.tsx';
+import { CharacterFiltersProps } from './components/characters-filters/CharactersFilter.types.ts';
 
 function CharacterTable() {
+  const [filters, setFilters] = useState<CharacterFiltersProps>({
+    gender: null,
+    eyeColor: [],
+    species: [],
+    film: null,
+  });
+
   const {
     loading,
     error,
@@ -91,6 +100,7 @@ function CharacterTable() {
 
   return (
     <>
+      <CharacterFilters filters={filters} setFilters={setFilters} />
       <Table
         columns={columns}
         dataSource={formattedData}

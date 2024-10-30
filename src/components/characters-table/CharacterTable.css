@@ -1,0 +1,7 @@
+.transparent-table .ant-table {
+    background-color: transparent; /* Make the main table background transparent */
+}
+
+.transparent-table .ant-table-container {
+    background: transparent; /* Ensure the table container is also transparent */
+}

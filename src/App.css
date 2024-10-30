@@ -1,8 +1,9 @@
 body {
   position: relative;
-  color: white;
-  overflow: hidden; /* Ensure that the body content doesn't affect the blur effect */
+  color: #E9E6D1;
+  overflow: hidden;
 }
+
 
 body::before {
   content: "";
@@ -16,7 +17,6 @@ body::before {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  filter: blur(8px); /* Adjust the blur level */
-  z-index: -1; /* Place the background behind other elements */
-  opacity: 0.7; /* Adjust opacity if you want a subtle blur */
+  filter: blur(4px);
+  z-index: -1;
 }

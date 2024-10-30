@@ -13,50 +13,53 @@ const CharacterDetail = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div style={{ padding: '40px' }}>
-      <Row>
-        <Col span={4}>
-          <Title>{character?.name}</Title>
-          <Title level={4}>
-            <strong>Gender:</strong> {character?.gender}
+    <>
+      <Row justify="center" align="top">
+        <Title style={{ color: '#E9E6D1' }}>
+        {character?.name}
+        </Title>
+      </Row>
+      <Row justify="center">
+        <Col span={4} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Title level={4} style={{ color: '#E9E6D1' }} >
+            Gender: {character?.gender}
           </Title>
-          <Title level={4}>
-            <strong>Height:</strong> {character?.height}
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Height: {character?.height}
           </Title>
-          <Title level={4}>
-            <strong>Mass:</strong> {character?.mass}
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Mass: {character?.mass}
           </Title>
-          <Title level={4}>
-            <strong>Home Planet:</strong> {character?.homeworld.name}
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Home Planet: {character?.homeworld.name}
           </Title>
-          <Title level={4}>
-            <strong>Species:</strong> {character?.species?.name}
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Species: {character?.species?.name}
           </Title>
-          <Title level={4}>
-            <strong>Eye Color:</strong> {character?.eyeColor}
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Eye Color: {character?.eyeColor}
           </Title>
         </Col>
-        <Col span={12}>
+        <Col span={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <img
             src="../../assets/images/star-wars-background.jpg"
             className="character-image"
             alt="character-details"
           />
         </Col>
-        <Col span={8}>
-          <Title level={3}>Films</Title>
+        <Col span={8} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <ul>
             {character?.filmConnection.films.map((film, index) => (
-              <li key={index}>
-                <Title level={4}>
+              <div key={index}>
+                <Title level={4} style={{ color: '#E9E6D1' }}>
                   {film.title} ({film.releaseDate})
                 </Title>
-              </li>
+              </div>
             ))}
           </ul>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
