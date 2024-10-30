@@ -1,5 +1,5 @@
 import React from 'react';
-import CharacterTable from '../../components/character-table/CharacterTable';
+import CharacterTable from '../../components/characters-table/CharacterTable';
 
 function LandingPage() {
   return (

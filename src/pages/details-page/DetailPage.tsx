@@ -1,9 +1,13 @@
 import { useParams } from 'react-router-dom';
+import CharacterDetail from '../../components/character-details/CharacterDetails.tsx';
 
 function DetailPage() {
-  const { id } = useParams();
 
-  return <div>Character ID: {id}</div>;
+  return (
+    <div>
+      <CharacterDetail/>
+    </div>
+  );
 }
 
 export default DetailPage;

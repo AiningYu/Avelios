@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_CHARACTERS } from '../index.tsx';
+import { GET_CHARACTERS } from '../graphql/characterQueries';
 
 export function useCharacterData(startCursor: string | null) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
