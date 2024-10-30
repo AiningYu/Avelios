@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 
 import {
   CharacterFiltersComponentProps,
@@ -9,7 +9,7 @@ import {
 const { Option } = Select;
 
 const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
-  setFilters
+  setFilters,
 }) => {
   const handleFilterChange = (
     value: string | string[],
@@ -21,12 +21,21 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
     }));
   };
 
+  const resetFilters = () => {
+    setFilters({
+      gender: null,
+      eyeColor: [],
+      species: [],
+      film: null,
+    });
+  };
+
   return (
     <div style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
       <Select
         placeholder="Select Gender"
         onChange={(value) => handleFilterChange(value, 'gender')}
-        style={{ width: 200 }}
+        style={{ width: 150 }}
       >
         <Option value="male">male</Option>
         <Option value="female">female</Option>
@@ -65,6 +74,14 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         <Option value="The Empire Strikes Back">The Empire Strikes Back</Option>
         {/* Add more options as needed */}
       </Select>
+
+      <Button
+        onClick={resetFilters}
+        type="primary"
+        style={{ marginLeft: '20px' }}
+      >
+        Reset
+      </Button>
     </div>
   );
 };

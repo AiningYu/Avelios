@@ -30,8 +30,8 @@ function CharacterTable() {
   const navigate = useNavigate();
 
   const compareStrings = (str1: string, str2: string): boolean => {
-    if (!str1) return true; // 如果 str1 为空，则返回 true 表示匹配
-    if (!str2) return false; // 如果 str2 为空，则返回 false 表示不匹配
+    if (!str1) return true;
+    if (!str2) return false;
     return str1 === str2;
   };
 
@@ -48,12 +48,11 @@ function CharacterTable() {
       ? filters.species.some(species => compareStrings(species, character.node.species?.name || ''))
       : true;
 
-    // 判断电影是否匹配
-    // const matchesFilm = filters.film
-    //   ? character.node.filmConnection?.films.some(film => compareStrings(film.title, filters.film))
-    //   : true;
+    const matchesFilm = filters.film
+      ? character.node.filmConnection?.films.some(film => compareStrings(filters.film || '', film.title || ''))
+      : true;
 
-    return matchesGender && matchesEyeColor && matchesSpecies;
+    return matchesGender && matchesEyeColor && matchesSpecies && matchesFilm;
   });
 
 
@@ -136,7 +135,7 @@ function CharacterTable() {
         rowKey={(record) => record.node.id}
         pagination={false}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+      <div>
         {pageInfo.hasPreviousPage && (
           <button onClick={loadPreviousPage}>Previous</button>
         )}
