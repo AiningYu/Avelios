@@ -1,4 +1,6 @@
-type CharacterNode = {
+import { Film } from '../../graphql/graphql.ts';
+
+export type CharacterNode = {
   id: string;
   name: string;
   height: string;
@@ -7,13 +9,17 @@ type CharacterNode = {
   species?: { name: string };
   gender: string;
   eyeColor: string;
+  filmConnection: {
+    films: Film[];
+    totalCount: number;
+  };
 };
 
-type CharacterEdge = {
+export type CharacterEdge = {
   node: CharacterNode;
   cursor: string;
 };
 
-interface CharacterTableProps {
+export interface CharacterTableProps {
   page: number;
 }

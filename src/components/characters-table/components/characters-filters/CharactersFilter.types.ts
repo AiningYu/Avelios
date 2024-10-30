@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface CharacterFiltersProps {
   gender: string | null;
   eyeColor: string[];
@@ -9,3 +11,5 @@ export interface CharacterFiltersComponentProps {
   filters: CharacterFiltersProps;
   setFilters: React.Dispatch<React.SetStateAction<CharacterFiltersProps>>;
 }
+
+

@@ -6,6 +6,7 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { useCharacterData } from '../../hooks/useCharacterData';
 import CharacterFilters from './components/characters-filters/CharactersFilters.tsx';
 import { CharacterFiltersProps } from './components/characters-filters/CharactersFilter.types.ts';
+import { CharacterEdge} from './CharacterTable.types.ts';
 
 function CharacterTable() {
   const [filters, setFilters] = useState<CharacterFiltersProps>({
@@ -27,6 +28,34 @@ function CharacterTable() {
   } = useCharacterData(null);
 
   const navigate = useNavigate();
+
+  const compareStrings = (str1: string, str2: string): boolean => {
+    if (!str1) return true; // 如果 str1 为空，则返回 true 表示匹配
+    if (!str2) return false; // 如果 str2 为空，则返回 false 表示不匹配
+    return str1 === str2;
+  };
+
+  const filteredData = formattedData.filter((character: CharacterEdge) => {
+    const matchesGender = filters.gender
+      ? compareStrings(character.node.gender, filters.gender)
+      : true;
+
+    const matchesEyeColor = filters.eyeColor.length > 0
+      ? filters.eyeColor.some(color => compareStrings(color, character.node.eyeColor))
+      : true;
+
+    const matchesSpecies = filters.species.length > 0
+      ? filters.species.some(species => compareStrings(species, character.node.species?.name || ''))
+      : true;
+
+    // 判断电影是否匹配
+    // const matchesFilm = filters.film
+    //   ? character.node.filmConnection?.films.some(film => compareStrings(film.title, filters.film))
+    //   : true;
+
+    return matchesGender && matchesEyeColor && matchesSpecies;
+  });
+
 
   const columns = [
     {
@@ -103,7 +132,7 @@ function CharacterTable() {
       <CharacterFilters filters={filters} setFilters={setFilters} />
       <Table
         columns={columns}
-        dataSource={formattedData}
+        dataSource={filteredData}
         rowKey={(record) => record.node.id}
         pagination={false}
       />

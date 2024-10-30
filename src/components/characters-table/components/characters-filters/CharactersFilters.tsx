@@ -1,40 +1,47 @@
 import React from 'react';
 import { Select } from 'antd';
 
-import { CharacterFiltersComponentProps, CharacterFiltersProps } from './CharactersFilter.types.ts';
+import {
+  CharacterFiltersComponentProps,
+  CharacterFiltersProps,
+} from './CharactersFilter.types.ts';
 
 const { Option } = Select;
 
-
-  const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({ filters, setFilters }) => {
-    const handleFilterChange = (value: string | string[], filterType: keyof CharacterFiltersProps) => {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        [filterType]: value,
-      }));
-    };
+const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
+  setFilters
+}) => {
+  const handleFilterChange = (
+    value: string | string[],
+    filterType: keyof CharacterFiltersProps,
+  ) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: value,
+    }));
+  };
 
   return (
-    <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
+    <div style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
       <Select
         placeholder="Select Gender"
         onChange={(value) => handleFilterChange(value, 'gender')}
-        style={{ width: 150 }}
+        style={{ width: 200 }}
       >
-        <Option value="male">Male</Option>
-        <Option value="female">Female</Option>
-        <Option value="other">Other</Option>
+        <Option value="male">male</Option>
+        <Option value="female">female</Option>
+        <Option value="n/a">n/a</Option>
       </Select>
 
       <Select
         mode="multiple"
         placeholder="Select Eye Color"
         onChange={(value) => handleFilterChange(value, 'eyeColor')}
-        style={{ width: 200 }}
+        style={{ width: 300 }}
       >
-        <Option value="blue">Blue</Option>
-        <Option value="green">Green</Option>
-        <Option value="brown">Brown</Option>
+        <Option value="blue">blue</Option>
+        <Option value="green">green</Option>
+        <Option value="brown">brown</Option>
         {/* Add more options as needed */}
       </Select>
 
@@ -42,17 +49,17 @@ const { Option } = Select;
         mode="multiple"
         placeholder="Select Species"
         onChange={(value) => handleFilterChange(value, 'species')}
-        style={{ width: 200 }}
+        style={{ width: 300 }}
       >
-        <Option value="human">Human</Option>
-        <Option value="droid">Droid</Option>
+        <Option value="human">human</Option>
+        <Option value="droid">droid</Option>
         {/* Add more options as needed */}
       </Select>
 
       <Select
         placeholder="Select Film"
         onChange={(value) => handleFilterChange(value, 'film')}
-        style={{ width: 200 }}
+        style={{ width: 400 }}
       >
         <Option value="A New Hope">A New Hope</Option>
         <Option value="The Empire Strikes Back">The Empire Strikes Back</Option>
