@@ -5,17 +5,25 @@ import { GET_CHARACTERS } from '../../index.tsx';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
 
-function CharacterTable(props: CharacterTableProps) {
-  const { page } = props;
-  const pageSize = 10;
-  const offset = (page - 1) * pageSize;
+function CharacterTable() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [startCursor, setStartCursor] = useState<string | null>(null);
+  const [endCursor, setEndCursor] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { first: pageSize, after: offset.toString() },
+  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
+    variables: { first: 10, after: startCursor },
+    notifyOnNetworkStatusChange: true,
   });
+
   const formattedData: CharacterEdge[] = data?.allPeople?.edges || [];
+  const pageInfo = data?.allPeople?.pageInfo || {
+    endCursor: null,
+    startCursor: null,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  };
 
   const toggleFavorite = (characterId: string) => {
     setFavorites((prev) => {
@@ -28,7 +36,6 @@ function CharacterTable(props: CharacterTableProps) {
       return newFavorites;
     });
   };
-
 
   const columns = [
     {
@@ -90,7 +97,6 @@ function CharacterTable(props: CharacterTableProps) {
       key: 'jump',
       render: (_: any, record: CharacterEdge) => (
         <ArrowRightOutlined
-          // onClick={() => navigate(`/characters/${record.node.id}`)}
           onClick={() => navigate(`/characters/`)}
           style={{ cursor: 'pointer' }}
         />
@@ -102,15 +108,49 @@ function CharacterTable(props: CharacterTableProps) {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Table
-      columns={columns}
-      dataSource={formattedData}
-      rowKey={(record) => record.node.id}
-      pagination={false}
-      className="custom-table"
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={formattedData}
+        rowKey={(record) => record.node.id}
+        pagination={false}
+      />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+        {pageInfo.hasPreviousPage && (
+          <button
+            onClick={() => {
+              fetchMore({
+                variables: { before: pageInfo.startCursor, last: 10 },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                  setStartCursor(fetchMoreResult?.allPeople?.pageInfo.startCursor || null);
+                  setEndCursor(fetchMoreResult?.allPeople?.pageInfo.endCursor || null);
+                  return fetchMoreResult ?? prevResult;
+                },
+              });
+            }}
+          >
+            Previous
+          </button>
+        )}
+        {pageInfo.hasNextPage && (
+          <button
+            onClick={() => {
+              fetchMore({
+                variables: { after: pageInfo.endCursor, first: 10 },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                  setStartCursor(fetchMoreResult?.allPeople?.pageInfo.startCursor || null);
+                  setEndCursor(fetchMoreResult?.allPeople?.pageInfo.endCursor || null);
+                  return fetchMoreResult ?? prevResult;
+                },
+              });
+            }}
+          >
+            Next
+          </button>
+        )}
+      </div>
+    </>
   );
-
 }
 
 export default CharacterTable;
