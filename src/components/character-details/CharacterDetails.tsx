@@ -19,8 +19,8 @@ const CharacterDetail = () => {
       backgroundColor: 'rgba(233, 230, 209, 0.01)'
     }}
           bordered={false}>
-      <Row style={{maxHeight: 50}}>
-        <Title style={{ color: '#E9E6D1', textAlign:'center' }}>{character?.name}</Title>
+      <Row  justify="center" style={{maxHeight: 50}}>
+        <Title style={{ color: '#E9E6D1'}}>{character?.name}</Title>
       </Row>
       <Row justify="center" style={{ marginTop: 2 }}>
         <Col

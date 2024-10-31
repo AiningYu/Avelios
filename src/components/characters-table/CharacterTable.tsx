@@ -131,21 +131,21 @@ function CharacterTable() {
     },
     {
       title: 'Home Planet',
-      dataIndex: ['node', 'homeworld', 'name'],
+      dataIndex: ['node', 'homeworld'],
       key: 'homeworld',
       render: (text: string) => text,
     },
     {
       title: 'Species',
-      dataIndex: ['node', 'species', 'name'],
+      dataIndex: ['node', 'species'],
       key: 'species',
-      render: (text: string) => text ,
+      render: (text: string) => text,
     },
     {
       title: 'Gender',
       dataIndex: ['node', 'gender'],
       key: 'gender',
-      render: (text: string) => text,
+      render: (text: string) => text ,
     },
     {
       title: 'Eye Color',
@@ -184,7 +184,11 @@ function CharacterTable() {
         pagination={false}
       />
       <button onClick={()=>
-        localStorage.removeItem('favorites')}> clear</button>
+        // localStorage.removeItem('favorites')}
+        console.log(formattedData)}
+      >
+        clear
+      </button>
       <div>
         {pageInfo.hasPreviousPage && (
           <button onClick={loadPreviousPage}>Previous</button>
