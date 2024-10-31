@@ -34,7 +34,10 @@ const CharacterDetail = () => {
             Height: {character?.height}
           </Title>
           <Title level={4} style={{ color: '#E9E6D1' }}>
-            Mass: {character?.mass}
+            Weight: {character?.mass}
+          </Title>
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Birth Year: {character?.birthYear}
           </Title>
           <Title level={4} style={{ color: '#E9E6D1' }}>
             Home Planet: {character?.homeworld.name}
@@ -45,6 +48,13 @@ const CharacterDetail = () => {
           <Title level={4} style={{ color: '#E9E6D1' }}>
             Eye Color: {character?.eyeColor}
           </Title>
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Skin Color: {character?.skinColor}
+          </Title>
+          <Title level={4} style={{ color: '#E9E6D1' }}>
+            Hair Color: {character?.hairColor}
+          </Title>
+
         </Col>
         <Col
           span={12}

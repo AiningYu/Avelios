@@ -50,12 +50,20 @@ export const GET_CHARACTER_BY_ID = gql`
       }
       gender
       eyeColor
+      skinColor
+      hairColor
+      birthYear
       filmConnection {
         films {
           title
           releaseDate
         }
         totalCount
+      }
+      vehicleConnection {
+        vehicles {
+          model
+        }
       }
     }
   }

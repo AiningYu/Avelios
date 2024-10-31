@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTER_BY_ID } from '../graphql/characterQueries';
+import { Vehicle } from '../graphql/graphql.ts';
 
 interface Film {
   title: string;
@@ -15,10 +16,16 @@ interface CharacterData {
   species: { name: string };
   gender: string;
   eyeColor: string;
+  skinColor: string;
+  hairColor: string;
+  birthYear: string;
   filmConnection: {
     films: Film[];
     totalCount: number;
   };
+  vehicleConnect: {
+    vehicles: Vehicle[];
+  }
 }
 
 export function useCharacterById(id: string) {
