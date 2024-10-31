@@ -15,13 +15,19 @@ const CharacterDetail = () => {
   return (
     <>
       <Row justify="center" align="top">
-        <Title style={{ color: '#E9E6D1' }}>
-        {character?.name}
-        </Title>
+        <Title style={{ color: '#E9E6D1' }}>{character?.name}</Title>
       </Row>
       <Row justify="center">
-        <Col span={4} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Title level={4} style={{ color: '#E9E6D1' }} >
+        <Col
+          span={4}
+          style={{
+            textAlign: 'left',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Title level={4} style={{ color: '#E9E6D1' }}>
             Gender: {character?.gender}
           </Title>
           <Title level={4} style={{ color: '#E9E6D1' }}>
@@ -40,14 +46,29 @@ const CharacterDetail = () => {
             Eye Color: {character?.eyeColor}
           </Title>
         </Col>
-        <Col span={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Col
+          span={12}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <img
             src="../../assets/images/star-wars-background.jpg"
             className="character-image"
             alt="character-details"
           />
         </Col>
-        <Col span={8} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Col
+          span={8}
+          style={{
+            textAlign: 'left',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <ul>
             {character?.filmConnection.films.map((film, index) => (
               <div key={index}>

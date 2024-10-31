@@ -24,7 +24,7 @@ interface CharacterData {
 export function useCharacterById(id: string) {
   const { loading, error, data } = useQuery<{ person: CharacterData }>(GET_CHARACTER_BY_ID, {
     variables: { id },
-    skip: !id, // Skip query if no ID is provided
+    skip: !id,
   });
 
   return {

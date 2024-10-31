@@ -5,7 +5,7 @@ function LandingPage() {
   return (
     <div style={{ width: '80%', margin: '0 auto', textAlign: 'center' }}>
       <h1 >Character Overview</h1>
-      <div style={{margin: '60px', textAlign: 'center'}}>
+      <div style={{marginTop: '60px', textAlign: 'center'}}>
         <CharacterTable />
       </div>
 

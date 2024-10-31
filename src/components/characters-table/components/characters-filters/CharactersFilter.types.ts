@@ -10,6 +10,8 @@ export interface CharacterFiltersProps {
 export interface CharacterFiltersComponentProps {
   filters: CharacterFiltersProps;
   setFilters: React.Dispatch<React.SetStateAction<CharacterFiltersProps>>;
+  setFavoritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
+  favoritesOnly: boolean;
 }
 
 
