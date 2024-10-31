@@ -27,38 +27,6 @@ function CharacterTable() {
     pageInfo,
   } = useCharacterData(null);
 
-  const dataSource: CharacterEdge[] = useMemo(() => {
-    if (favoritesOnly) {
-      const favoritesString = localStorage.getItem('favorites');
-      const favoritesArray = favoritesString ? JSON.parse(favoritesString) : [];
-      return Array.isArray(favoritesArray) ? favoritesArray : [];
-    }
-    return formattedData || [];
-  }, [favoritesOnly, formattedData]);
-
-
-  const toggleFavorite = (character: CharacterEdge) => {
-    setFavorites((prev) => {
-      const updatedFavorites = new Set(prev);
-
-      const isFavorite = Array.from(updatedFavorites).some(
-        (fav) => fav.node.id === character.node.id
-      );
-
-      if (isFavorite) {
-        updatedFavorites.delete(character);
-      } else {
-        updatedFavorites.add(character);
-      }
-
-      localStorage.setItem(
-        'favorites',
-        JSON.stringify(Array.from(updatedFavorites))
-      );
-
-      return updatedFavorites;
-    });
-  };
 
   const compareStrings = (str1: string, str2: string): boolean => {
     if (!str1) return true;
@@ -66,8 +34,8 @@ function CharacterTable() {
     return str1 === str2;
   };
 
-  const filterData = (dataSource:CharacterEdge[]) =>{
-    dataSource.filter((character: CharacterEdge) => {
+  const filterData = (dataSource:CharacterEdge[]): CharacterEdge[] =>{
+    return dataSource.filter((character: CharacterEdge) => {
       const matchesGender = filters.gender
         ? compareStrings(character.node.gender, filters.gender)
         : true;
@@ -95,6 +63,42 @@ function CharacterTable() {
       return matchesGender && matchesEyeColor && matchesSpecies && matchesFilm;
     });
   }
+
+  const dataSource: CharacterEdge[] = useMemo(() => {
+    if (favoritesOnly) {
+      const favoritesString = localStorage.getItem('favorites');
+      const favoritesArray = favoritesString ? JSON.parse(favoritesString) : [];
+      return Array.isArray(favoritesArray) ? favoritesArray : [];
+    }
+    return filterData(formattedData) || [];
+  }, [favoritesOnly, formattedData]);
+
+
+  const toggleFavorite = (character: CharacterEdge) => {
+    setFavorites((prev) => {
+      const updatedFavorites = new Set(prev);
+
+      const isFavorite = Array.from(updatedFavorites).some(
+        (fav) => fav.node.id === character.node.id
+      );
+
+      if (isFavorite) {
+        updatedFavorites.delete(character);
+      } else {
+        updatedFavorites.add(character);
+      }
+
+      localStorage.setItem(
+        'favorites',
+        JSON.stringify(Array.from(updatedFavorites))
+      );
+
+      return updatedFavorites;
+    });
+  };
+
+
+
 
   const columns = [
     {

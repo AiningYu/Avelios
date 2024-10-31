@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Select, Switch } from 'antd';
+import React from 'react';
+import { Select, Switch } from 'antd';
 
 import {
   CharacterFiltersComponentProps,
@@ -19,17 +19,8 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
   ) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [filterType]: value,
+      [filterType]: value === 'no filter' ? null : value,
     }));
-  };
-
-  const resetFilters = () => {
-    setFilters({
-      gender: null,
-      eyeColor: [],
-      species: [],
-      film: null,
-    });
   };
 
   return (
@@ -46,10 +37,12 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         placeholder="Select Gender"
         onChange={(value) => handleFilterChange(value, 'gender')}
         style={{ width: 150 }}
+        defaultValue="no filter"
       >
-        <Option value="male">male</Option>
-        <Option value="female">female</Option>
-        <Option value="n/a">n/a</Option>
+        <Option value="no filter">No filter</Option>
+        <Option value="male">Male</Option>
+        <Option value="female">Female</Option>
+        <Option value="n/a">N/A</Option>
       </Select>
 
       <Select
@@ -58,9 +51,10 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         onChange={(value) => handleFilterChange(value, 'eyeColor')}
         style={{ width: 250 }}
       >
-        <Option value="blue">blue</Option>
-        <Option value="green">green</Option>
-        <Option value="brown">brown</Option>
+        <Option value="no filter">No filter</Option>
+        <Option value="blue">Blue</Option>
+        <Option value="green">Green</Option>
+        <Option value="brown">Brown</Option>
       </Select>
 
       <Select
@@ -69,26 +63,21 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         onChange={(value) => handleFilterChange(value, 'species')}
         style={{ width: 250 }}
       >
-        <Option value="human">human</Option>
-        <Option value="droid">droid</Option>
+        <Option value="no filter">No filter</Option>
+        <Option value="human">Human</Option>
+        <Option value="droid">Droid</Option>
       </Select>
 
       <Select
         placeholder="Select Film"
         onChange={(value) => handleFilterChange(value, 'film')}
         style={{ width: 350 }}
+        defaultValue="no filter"
       >
+        <Option value="no filter">No filter</Option>
         <Option value="A New Hope">A New Hope</Option>
         <Option value="The Empire Strikes Back">The Empire Strikes Back</Option>
       </Select>
-
-      <Button
-        onClick={resetFilters}
-        type="primary"
-        style={{ marginLeft: '20px' }}
-      >
-        Reset
-      </Button>
     </div>
   );
 };
