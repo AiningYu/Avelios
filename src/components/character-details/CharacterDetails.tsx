@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useCharacterById } from '../../hooks/useCharacterByID.ts';
 import { Col, Row } from 'antd';
 import { Typography } from 'antd';
+// @ts-ignore
+import starWarsImage from '../../assets/images/character-details.jpg';
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -60,16 +62,25 @@ const CharacterDetail = () => {
           span={12}
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
+            padding: '10px',
+            maxHeight: '800px',
+            overflow: 'hidden'
           }}
         >
           <img
-            src="../../assets/images/star-wars-background.jpg"
+            src={starWarsImage}
             className="character-image"
             alt="character-details"
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              objectFit: 'contain'
+            }}
           />
         </Col>
+
         <Col
           span={8}
           style={{
