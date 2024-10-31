@@ -3,9 +3,7 @@ import CharacterDetail from '../../components/character-details/CharacterDetails
 function DetailPage() {
 
   return (
-    <div>
-      <CharacterDetail/>
-    </div>
+    <CharacterDetail/>
   );
 }
 

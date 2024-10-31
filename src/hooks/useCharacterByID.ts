@@ -7,6 +7,7 @@ interface Film {
   releaseDate: string;
 }
 
+
 interface CharacterData {
   id: string;
   name: string;
@@ -23,7 +24,7 @@ interface CharacterData {
     films: Film[];
     totalCount: number;
   };
-  vehicleConnect: {
+  vehicleConnection: {
     vehicles: Vehicle[];
   }
 }
