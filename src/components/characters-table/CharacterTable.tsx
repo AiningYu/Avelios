@@ -39,14 +39,14 @@ function CharacterTable() {
         : true;
 
       const matchesEyeColor =
-        filters.eyeColor.length > 0
+        filters.eyeColor && filters.eyeColor.length > 0
           ? filters.eyeColor.some((color) =>
             compareStrings(color, character.node.eyeColor),
           )
           : true;
 
       const matchesSpecies =
-        filters.species.length > 0
+        filters.species && filters.species.length > 0
           ? filters.species.some((species) =>
             compareStrings(species, character.node.species?.name || ''),
           )
@@ -76,7 +76,7 @@ function CharacterTable() {
       return filterData(favorites.filter((fav: CharacterEdge) => fav.node && fav.node.id));
     }
     return filterData(formattedData) || [];
-  }, [favoritesOnly, formattedData, favorites]);
+  }, [favoritesOnly, formattedData, favorites,filters]);
 
 
   const toggleFavorite = (character: CharacterEdge) => {
