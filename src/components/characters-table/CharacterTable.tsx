@@ -15,7 +15,6 @@ function CharacterTable() {
     film: null,
   });
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState<Set<CharacterEdge>>(new Set());
   const [favoritesOnly, setFavoritesOnly] = useState(false);
 
   const {
@@ -27,14 +26,13 @@ function CharacterTable() {
     pageInfo,
   } = useCharacterData(null);
 
-
   const compareStrings = (str1: string, str2: string): boolean => {
     if (!str1) return true;
     if (!str2) return false;
     return str1 === str2;
   };
 
-  const filterData = (dataSource:CharacterEdge[]): CharacterEdge[] =>{
+  const filterData = (dataSource: CharacterEdge[]): CharacterEdge[] => {
     return dataSource.filter((character: CharacterEdge) => {
       const matchesGender = filters.gender
         ? compareStrings(character.node.gender, filters.gender)
@@ -62,42 +60,42 @@ function CharacterTable() {
 
       return matchesGender && matchesEyeColor && matchesSpecies && matchesFilm;
     });
-  }
+  };
+
+  const [favorites, setFavorites] = useState<CharacterEdge[]>(() => {
+    const favoritesString = localStorage.getItem('favorites');
+    const parsedFavorites = favoritesString ? JSON.parse(favoritesString) : [];
+    return parsedFavorites.filter(
+      (fav: CharacterEdge) => fav.node && typeof fav.node.id !== 'undefined'
+    );
+  });
+
 
   const dataSource: CharacterEdge[] = useMemo(() => {
     if (favoritesOnly) {
-      const favoritesString = localStorage.getItem('favorites');
-      const favoritesArray = favoritesString ? JSON.parse(favoritesString) : [];
-      return Array.isArray(favoritesArray) ? favoritesArray : [];
+      return filterData(favorites.filter((fav: CharacterEdge) => fav.node && fav.node.id));
     }
     return filterData(formattedData) || [];
-  }, [favoritesOnly, formattedData]);
+  }, [favoritesOnly, formattedData, favorites]);
 
 
   const toggleFavorite = (character: CharacterEdge) => {
-    setFavorites((prev) => {
-      const updatedFavorites = new Set(prev);
+    const isFavorite = favorites.some(
+      (fav: CharacterEdge) => fav.node && fav.node.id === character.node?.id
+    );
 
-      const isFavorite = Array.from(updatedFavorites).some(
-        (fav) => fav.node.id === character.node.id
+    let updatedFavorites;
+    if (isFavorite) {
+      updatedFavorites = favorites.filter(
+        (fav: CharacterEdge) => fav.node && fav.node.id !== character.node?.id
       );
+    } else {
+      updatedFavorites = [...favorites, character];
+    }
 
-      if (isFavorite) {
-        updatedFavorites.delete(character);
-      } else {
-        updatedFavorites.add(character);
-      }
-
-      localStorage.setItem(
-        'favorites',
-        JSON.stringify(Array.from(updatedFavorites))
-      );
-
-      return updatedFavorites;
-    });
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
-
-
 
 
   const columns = [
@@ -107,6 +105,7 @@ function CharacterTable() {
       key: 'favorite',
       render: (_: any, record: CharacterEdge) => (
         <Checkbox
+          checked={favorites.some((fav: CharacterEdge) => fav.node?.id === record.node?.id)}
           onChange={() => toggleFavorite(record)}
         />
       ),
@@ -183,9 +182,9 @@ function CharacterTable() {
         rowKey={(record) => record.node.id}
         pagination={false}
       />
-      <button onClick={()=>
-        // localStorage.removeItem('favorites')}
-        console.log(formattedData)}
+      <button onClick={() =>
+        localStorage.removeItem('favorites')}
+        // console.log(formattedData)}
       >
         clear
       </button>

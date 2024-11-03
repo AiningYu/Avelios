@@ -9,6 +9,7 @@ import {
 const { Option } = Select;
 
 const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
+  filters,
   setFilters,
   setFavoritesOnly,
   favoritesOnly,
@@ -37,7 +38,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         placeholder="Select Gender"
         onChange={(value) => handleFilterChange(value, 'gender')}
         style={{ width: 150 }}
-        defaultValue="no filter"
+        defaultValue={filters.gender}
       >
         <Option value="no filter">No filter</Option>
         <Option value="male">Male</Option>
@@ -50,6 +51,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         placeholder="Select Eye Color"
         onChange={(value) => handleFilterChange(value, 'eyeColor')}
         style={{ width: 250 }}
+        defaultValue={filters.eyeColor}
       >
         <Option value="no filter">No filter</Option>
         <Option value="blue">Blue</Option>
@@ -62,6 +64,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         placeholder="Select Species"
         onChange={(value) => handleFilterChange(value, 'species')}
         style={{ width: 250 }}
+        defaultValue={filters.species}
       >
         <Option value="no filter">No filter</Option>
         <Option value="human">Human</Option>
@@ -72,7 +75,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         placeholder="Select Film"
         onChange={(value) => handleFilterChange(value, 'film')}
         style={{ width: 350 }}
-        defaultValue="no filter"
+        defaultValue={filters.film}
       >
         <Option value="no filter">No filter</Option>
         <Option value="A New Hope">A New Hope</Option>
