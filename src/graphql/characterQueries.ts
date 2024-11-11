@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_CHARACTERS = gql`
-  query GetCharacters($first: Int, $after: String) {
-    allPeople(first: $first, after: $after) {
+  query GetCharacters($cursor: String) {
+    allPeople(first: 10, after: $cursor) {
       edges {
         node {
           id
@@ -29,6 +29,8 @@ export const GET_CHARACTERS = gql`
       }
       pageInfo {
         endCursor
+        hasPreviousPage
+        startCursor
         hasNextPage
       }
     }

@@ -20,7 +20,6 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
   ) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      // [filterType]: value === 'no filter' ? null : value,
       [filterType]: Array.isArray(value)?  (value.includes('no filter') ? null:value) : (value === 'no filter' ? null : value),
     }));
   };

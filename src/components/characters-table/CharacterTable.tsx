@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Checkbox, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { useCharacterData } from '../../hooks/useCharacterData';
+import useCharacterTable from '../../hooks/useCharacterData';
 import CharacterFilters from './components/characters-filters/CharactersFilters.tsx';
 import { CharacterFiltersProps } from './components/characters-filters/CharactersFilter.types.ts';
 import { CharacterEdge } from './CharacterTable.types.ts';
@@ -17,14 +17,8 @@ function CharacterTable() {
   const navigate = useNavigate();
   const [favoritesOnly, setFavoritesOnly] = useState(false);
 
-  const {
-    loading,
-    error,
-    formattedData,
-    loadNextPage,
-    loadPreviousPage,
-    pageInfo,
-  } = useCharacterData(null);
+  const { data, loading, error, handleNext, handlePrevious, formattedData } = useCharacterTable();
+
 
   const compareStrings = (str1: string, str2: string): boolean => {
     if (!str1) return true;
@@ -41,21 +35,21 @@ function CharacterTable() {
       const matchesEyeColor =
         filters.eyeColor && filters.eyeColor.length > 0
           ? filters.eyeColor.some((color) =>
-            compareStrings(color, character.node.eyeColor),
-          )
+              compareStrings(color, character.node.eyeColor),
+            )
           : true;
 
       const matchesSpecies =
         filters.species && filters.species.length > 0
           ? filters.species.some((species) =>
-            compareStrings(species, character.node.species?.name || ''),
-          )
+              compareStrings(species, character.node.species?.name || ''),
+            )
           : true;
 
       const matchesFilm = filters.film
         ? character.node.filmConnection?.films.some((film) =>
-          compareStrings(filters.film || '', film.title || ''),
-        )
+            compareStrings(filters.film || '', film.title || ''),
+          )
         : true;
 
       return matchesGender && matchesEyeColor && matchesSpecies && matchesFilm;
@@ -66,28 +60,28 @@ function CharacterTable() {
     const favoritesString = localStorage.getItem('favorites');
     const parsedFavorites = favoritesString ? JSON.parse(favoritesString) : [];
     return parsedFavorites.filter(
-      (fav: CharacterEdge) => fav.node && typeof fav.node.id !== 'undefined'
+      (fav: CharacterEdge) => fav.node && typeof fav.node.id !== 'undefined',
     );
   });
 
-
   const dataSource: CharacterEdge[] = useMemo(() => {
     if (favoritesOnly) {
-      return filterData(favorites.filter((fav: CharacterEdge) => fav.node && fav.node.id));
+      return filterData(
+        favorites.filter((fav: CharacterEdge) => fav.node && fav.node.id),
+      );
     }
     return filterData(formattedData) || [];
-  }, [favoritesOnly, formattedData, favorites,filters]);
-
+  }, [favoritesOnly, formattedData, favorites, filters]);
 
   const toggleFavorite = (character: CharacterEdge) => {
     const isFavorite = favorites.some(
-      (fav: CharacterEdge) => fav.node && fav.node.id === character.node?.id
+      (fav: CharacterEdge) => fav.node && fav.node.id === character.node?.id,
     );
 
     let updatedFavorites;
     if (isFavorite) {
       updatedFavorites = favorites.filter(
-        (fav: CharacterEdge) => fav.node && fav.node.id !== character.node?.id
+        (fav: CharacterEdge) => fav.node && fav.node.id !== character.node?.id,
       );
     } else {
       updatedFavorites = [...favorites, character];
@@ -97,7 +91,6 @@ function CharacterTable() {
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
-
   const columns = [
     {
       title: 'Favorite',
@@ -105,7 +98,9 @@ function CharacterTable() {
       key: 'favorite',
       render: (_: any, record: CharacterEdge) => (
         <Checkbox
-          checked={favorites.some((fav: CharacterEdge) => fav.node?.id === record.node?.id)}
+          checked={favorites.some(
+            (fav: CharacterEdge) => fav.node?.id === record.node?.id,
+          )}
           onChange={() => toggleFavorite(record)}
         />
       ),
@@ -114,7 +109,7 @@ function CharacterTable() {
       title: 'Name',
       dataIndex: ['node', 'name'],
       key: 'name',
-      render: (text: string) => text ,
+      render: (text: string) => text,
     },
     {
       title: 'Height',
@@ -126,7 +121,7 @@ function CharacterTable() {
       title: 'Weight',
       dataIndex: ['node', 'mass'],
       key: 'mass',
-      render: (text: string) => text ,
+      render: (text: string) => text,
     },
     {
       title: 'Home Planet',
@@ -144,7 +139,7 @@ function CharacterTable() {
       title: 'Gender',
       dataIndex: ['node', 'gender'],
       key: 'gender',
-      render: (text: string) => text ,
+      render: (text: string) => text,
     },
     {
       title: 'Eye Color',
@@ -182,17 +177,16 @@ function CharacterTable() {
         rowKey={(record) => record.node.id}
         pagination={false}
       />
-      <button onClick={() =>
-        localStorage.removeItem('favorites')}
-        // console.log(formattedData)}
-      >
+      <button onClick={() => localStorage.removeItem('favorites')}>
         clear
       </button>
       <div>
-        {pageInfo.hasPreviousPage && (
-          <button onClick={loadPreviousPage}>Previous</button>
-        )}
-        {pageInfo.hasNextPage && <button onClick={loadNextPage}>Next</button>}
+        <button onClick={handlePrevious} >
+          上一页
+        </button>
+        <button onClick={handleNext} >
+          下一页
+        </button>
       </div>
     </>
   );

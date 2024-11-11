@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS } from '../graphql/characterQueries';
-import { CharacterEdge, CharacterNode } from '../components/characters-table/CharacterTable.types.ts';
+import { CharacterEdge, CharacterNode } from '../components/characters-table/CharacterTable.types';
 
 function formatCharacterData(character: CharacterNode) {
   return {
@@ -21,55 +20,47 @@ function formatCharacterData(character: CharacterNode) {
   };
 }
 
-export function useCharacterData(startCursor: string | null) {
-  const [startCursorState, setStartCursor] = useState<string | null>(startCursor);
-  const [endCursor, setEndCursor] = useState<string | null>(null);
+const useCharacterTable = () => {
 
-  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
-    variables: { first: 10, after: startCursorState },
-    notifyOnNetworkStatusChange: true,
+  const { data, loading, error, fetchMore} = useQuery(GET_CHARACTERS, {
+    notifyOnNetworkStatusChange: true
   });
 
-  const pageInfo = data?.allPeople?.pageInfo || {
-    endCursor: null,
-    startCursor: null,
-    hasNextPage: false,
-    hasPreviousPage: false,
-  };
-
-  const formattedData = data?.allPeople?.edges.map((edge:CharacterEdge)=> ({
+  const formattedData = data?.allPeople?.edges.map((edge: CharacterEdge) => ({
     cursor: edge.cursor,
     node: formatCharacterData(edge.node),
   })) || [];
 
-  const loadNextPage = async () => {
+
+  const handleNext = async () => {
     await fetchMore({
-      variables: { after: pageInfo.endCursor, first: 10 },
+      variables: { cursor: data.allPeople.pageInfo.endCursor },
       updateQuery: (prevResult, { fetchMoreResult }) => {
-        setStartCursor(fetchMoreResult?.allPeople?.pageInfo.startCursor || null);
-        setEndCursor(fetchMoreResult?.allPeople?.pageInfo.endCursor || null);
-        return fetchMoreResult ?? prevResult;
+        if (!fetchMoreResult) return prevResult;
+        return fetchMoreResult;
       },
     });
   };
 
-  const loadPreviousPage = async () => {
+  const handlePrevious = async () => {
     await fetchMore({
-      variables: { before: pageInfo.startCursor, last: 10 },
+      variables: { cursor: data.allPeople.pageInfo.startCursor },
       updateQuery: (prevResult, { fetchMoreResult }) => {
-        setStartCursor(fetchMoreResult?.allPeople?.pageInfo.startCursor || null);
-        setEndCursor(fetchMoreResult?.allPeople?.pageInfo.endCursor || null);
-        return fetchMoreResult ?? prevResult;
+        if (!fetchMoreResult) return prevResult;
+        return fetchMoreResult;
       },
     });
+
   };
 
   return {
+    data,
     loading,
     error,
+    handleNext,
+    handlePrevious,
     formattedData,
-    loadNextPage,
-    loadPreviousPage,
-    pageInfo,
   };
-}
+};
+
+export default useCharacterTable;
