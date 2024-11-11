@@ -177,15 +177,12 @@ function CharacterTable() {
         rowKey={(record) => record.node.id}
         pagination={false}
       />
-      <button onClick={() => localStorage.removeItem('favorites')}>
-        clear
-      </button>
       <div>
         <button onClick={handlePrevious} >
-          上一页
+          Previous
         </button>
         <button onClick={handleNext} >
-          下一页
+          Next
         </button>
       </div>
     </>

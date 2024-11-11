@@ -23,6 +23,7 @@ function formatCharacterData(character: CharacterNode) {
 const useCharacterTable = () => {
 
   const { data, loading, error, fetchMore} = useQuery(GET_CHARACTERS, {
+    variables: { first: 10, after: null },
     notifyOnNetworkStatusChange: true
   });
 
@@ -34,9 +35,9 @@ const useCharacterTable = () => {
 
   const handleNext = async () => {
     await fetchMore({
-      variables: { cursor: data.allPeople.pageInfo.endCursor },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prevResult;
+      variables: { first: 10, after: data.allPeople.pageInfo.endCursor, last: null, before: null},
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousResult;
         return fetchMoreResult;
       },
     });
@@ -44,9 +45,9 @@ const useCharacterTable = () => {
 
   const handlePrevious = async () => {
     await fetchMore({
-      variables: { cursor: data.allPeople.pageInfo.startCursor },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prevResult;
+      variables: { last: 10, before: data.allPeople.pageInfo.startCursor, first: null, after: null },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousResult;
         return fetchMoreResult;
       },
     });

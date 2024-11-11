@@ -1,8 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const GET_CHARACTERS = gql`
-  query GetCharacters($cursor: String) {
-    allPeople(first: 10, after: $cursor) {
+  query GetCharacters(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+  ) {
+    allPeople(first: $first, last: $last, after: $after, before: $before) {
       edges {
         node {
           id
