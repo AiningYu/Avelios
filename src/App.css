@@ -1,0 +1,22 @@
+body {
+  position: relative;
+  color: #E9E6D1;
+  overflow: hidden;
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/images/star-wars-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  filter: blur(4px);
+  z-index: -1;
+}
