@@ -1,23 +1,25 @@
-export type Person = {
+export interface Species {
+  name: string;
+}
+
+export interface Person {
   gender: string;
   eyeColor: string;
-  species?: {
-    name: string;
-  };
-};
+  species?: Species;
+}
 
-export type AllPeopleData = {
+export interface AllPeopleData {
   allPeople: {
     people: Person[];
   };
-};
+}
 
-export type Film = {
+export interface Film {
   title: string;
-};
+}
 
-export type AllFilmsData = {
+export interface AllFilmsData {
   allFilms: {
     films: Film[];
   };
-};
+}

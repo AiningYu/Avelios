@@ -1,25 +1,32 @@
 import { Film } from '../../graphql/graphql.ts';
 
-export type CharacterNode = {
+export interface Homeworld {
+  name: string;
+}
+
+export interface Species {
+  name: string;
+}
+
+export interface FilmConnection {
+  films: Film[];
+  totalCount: number;
+}
+
+export interface CharacterNode {
   id: string;
   name: string;
   height: string;
   mass: string;
-  homeworld?: { name: string };
-  species?: { name: string };
+  homeworld?: Homeworld;
+  species?: Species;
   gender: string;
   eyeColor: string;
-  filmConnection: {
-    films: Film[];
-    totalCount: number;
-  };
-};
+  filmConnection: FilmConnection;
+}
 
-export type CharacterEdge = {
+export interface CharacterEdge {
   node: CharacterNode;
   cursor: string;
-};
-
-export interface CharacterTableProps {
-  page: number;
 }
+

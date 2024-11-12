@@ -46,7 +46,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
       >
         <Option value="no filter">No filter</Option>
         {genderOptions.map(gender => (
-          <Option value={gender}>{gender}</Option>
+          <Option key={gender} value={gender}>{gender}</Option>
         ))}
       </Select>
 
@@ -59,7 +59,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
       >
         <Option value="no filter">No filter</Option>
         {eyeColorOptions.map(color => (
-          <Option value={color}>{color}</Option>
+          <Option key={color} value={color}>{color}</Option>
         ))}
       </Select>
 
@@ -72,7 +72,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
       >
         <Option value="no filter">No filter</Option>
         {speciesOptions.map(species => (
-          <Option value={species}>{species}</Option>
+          <Option key={species} value={species}>{species}</Option>
         ))}
       </Select>
 
@@ -84,7 +84,7 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
       >
         <Option value="no filter">No filter</Option>
         {filmOptions.map(film => (
-        <Option value={film}>{film}</Option>
+        <Option key={film} value={film}>{film}</Option>
       ))}
       </Select>
     </div>

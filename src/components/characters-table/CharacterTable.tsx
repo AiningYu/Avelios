@@ -17,10 +17,11 @@ function CharacterTable() {
   const navigate = useNavigate();
   const [favoritesOnly, setFavoritesOnly] = useState(false);
 
-  const { data, loading, error, handleNext, handlePrevious, formattedData } = useCharacterTable();
+  const { loading, error, handleNext, handlePrevious, formattedData } = useCharacterTable();
 
 
   const compareStrings = (str1: string, str2: any): boolean => {
+    console.log(str1, str2);
     if (!str1) return true;
     if (!str2) return false;
 
@@ -178,14 +179,15 @@ function CharacterTable() {
         rowKey={(record) => record.node.id}
         pagination={false}
       />
-      <div>
-        <button onClick={handlePrevious} >
+      <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+        <button onClick={handlePrevious} style={{ minWidth: '50px', minHeight: '30px', borderRadius: '5px' }}>
           Previous
         </button>
-        <button onClick={handleNext} >
+        <button onClick={handleNext} style={{ minWidth: '50px', minHeight: '30px', borderRadius: '5px' }}>
           Next
         </button>
       </div>
+
     </>
   );
 }
