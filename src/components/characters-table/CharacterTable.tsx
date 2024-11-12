@@ -20,10 +20,11 @@ function CharacterTable() {
   const { data, loading, error, handleNext, handlePrevious, formattedData } = useCharacterTable();
 
 
-  const compareStrings = (str1: string, str2: string): boolean => {
+  const compareStrings = (str1: string, str2: any): boolean => {
     if (!str1) return true;
     if (!str2) return false;
-    return str1 === str2;
+
+    return str1.toLowerCase() == str2.toLowerCase();
   };
 
   const filterData = (dataSource: CharacterEdge[]): CharacterEdge[] => {
@@ -42,7 +43,7 @@ function CharacterTable() {
       const matchesSpecies =
         filters.species && filters.species.length > 0
           ? filters.species.some((species) =>
-              compareStrings(species, character.node.species?.name || ''),
+              compareStrings(species, character.node.species),
             )
           : true;
 

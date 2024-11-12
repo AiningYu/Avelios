@@ -5,6 +5,7 @@ import {
   CharacterFiltersComponentProps,
   CharacterFiltersProps,
 } from './CharactersFilter.types.ts';
+import { useFilmFilteredData, usePeopleFilteredData } from '../../../../hooks/useFilterData.tsx';
 
 const { Option } = Select;
 
@@ -14,6 +15,9 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
   setFavoritesOnly,
   favoritesOnly,
 }) => {
+  const { genderOptions, eyeColorOptions, speciesOptions } = usePeopleFilteredData();
+  const { filmOptions } = useFilmFilteredData();
+
   const handleFilterChange = (
     value: string | string[],
     filterType: keyof CharacterFiltersProps,
@@ -41,9 +45,9 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         defaultValue={filters.gender}
       >
         <Option value="no filter">No filter</Option>
-        <Option value="male">Male</Option>
-        <Option value="female">Female</Option>
-        <Option value="n/a">N/A</Option>
+        {genderOptions.map(gender => (
+          <Option value={gender}>{gender}</Option>
+        ))}
       </Select>
 
       <Select
@@ -54,9 +58,9 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         defaultValue={filters.eyeColor}
       >
         <Option value="no filter">No filter</Option>
-        <Option value="blue">Blue</Option>
-        <Option value="green">Green</Option>
-        <Option value="brown">Brown</Option>
+        {eyeColorOptions.map(color => (
+          <Option value={color}>{color}</Option>
+        ))}
       </Select>
 
       <Select
@@ -67,8 +71,9 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         defaultValue={filters.species}
       >
         <Option value="no filter">No filter</Option>
-        <Option value="human">Human</Option>
-        <Option value="droid">Droid</Option>
+        {speciesOptions.map(species => (
+          <Option value={species}>{species}</Option>
+        ))}
       </Select>
 
       <Select
@@ -78,8 +83,9 @@ const CharacterFilters: React.FC<CharacterFiltersComponentProps> = ({
         defaultValue={filters.film}
       >
         <Option value="no filter">No filter</Option>
-        <Option value="A New Hope">A New Hope</Option>
-        <Option value="The Empire Strikes Back">The Empire Strikes Back</Option>
+        {filmOptions.map(film => (
+        <Option value={film}>{film}</Option>
+      ))}
       </Select>
     </div>
   );

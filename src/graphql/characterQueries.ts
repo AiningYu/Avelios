@@ -1,5 +1,29 @@
 import { gql } from '@apollo/client';
 
+export const GET_ALL_PEOPLE_QUERY = gql`
+  query GetAllPeople {
+    allPeople {
+      people {
+        gender
+        eyeColor
+        species {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ALL_FILMS = gql`
+  query GetAllFilms {
+    allFilms {
+      films {
+        title
+      }
+    }
+  }
+`;
+
 export const GET_CHARACTERS = gql`
   query GetCharacters(
     $first: Int
